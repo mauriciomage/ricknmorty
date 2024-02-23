@@ -1,0 +1,16 @@
+<div class="c-card">
+  <!--left side-->
+  <div class="c-card__left">
+    <ng-content select="[card-avatar]"></ng-content>
+  </div>
+  <!--right side-->
+  <div class="c-card__right">
+    <div class="c-card__right__header">
+        <ng-content select="[card-title]"></ng-content>  <!--name-->
+        <ng-content select="[card-subtitle]"></ng-content>  <!--status-->
+    </div>
+    <!--Body-->
+    <ng-content select="[card-body]"></ng-content>
+  </div>
+</div>
+
