@@ -2,13 +2,13 @@
   <div class="c-home__container">
     <h3 class="c-home__container__header">Rick & Morty Application</h3>
     
-    <div class="c-home__container__list">
-      <app-card>
+    <div class="c-home__container__list" *ngIf="(data$ | async)?.results as characters">
+      <app-card *ngFor="let item of characters">
         <!--left side -->
-        <img card-avatar src="" />
+        <img card-avatar [src]="item.image" />
         <!-- right side -->
-          <span card-title>  </span>
-          <span card-subtitle>   </span>
+          <span card-title> {{item.name}} </span>
+          <span card-subtitle> Gender: {{item.gender}}  </span>
       </app-card>  
     </div>
   </div>
