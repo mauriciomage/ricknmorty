@@ -16,4 +16,10 @@ export class MainService {
     )
     .pipe(shareReplay(1));
   }
+
+  public getItemsByName(name: string): Observable<Main> {
+    return this.http.get<Main>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}?name=${name}`, {}
+    )
+    .pipe(shareReplay(1));
+  }
 }

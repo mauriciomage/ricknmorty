@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Info } from '../interfaces/main.interface';
 import { Output, EventEmitter } from '@angular/core';
-
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
@@ -24,7 +23,8 @@ export class PaginatorComponent implements OnInit {
   }
 
   private calculateCurrentPage(): void {
-    this.currentPage = +this.pagination.next.split('=')[1] - 1;
+    const page = this.getPage(this.pagination.next);
+    this.currentPage = page - 1;
   }
 
   public goNextPage() {
@@ -33,5 +33,11 @@ export class PaginatorComponent implements OnInit {
 
   public goPrevPage() {
     this.prevEvent.emit(+this.pagination.prev.split('=')[1]);
+  }
+
+  private getPage(url: string): number {
+    const queryString = url.split('?')[1];
+    const queryParams = queryString.split('&');
+    return +queryParams[0].split('=')[1];
   }
 }

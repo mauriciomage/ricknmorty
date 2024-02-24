@@ -1,6 +1,50 @@
 <div class="c-home">
   <div class="c-home__container">
-    <h3 class="c-home__container__header">Rick & Morty Application</h3>
+    <h3 class="c-home__container__heading">Rick & Morty Application</h3>
+    
+    <div class="c-home__container__header">
+      <div class="c-home__container__header__search">
+        <form 
+          [formGroup]="searchForm"
+          class="c-home__container__header__search__form"
+        >
+        <div>
+            <input 
+            (keyup.enter)="filterByName()"
+            (input)="onInputChange($event)"
+            formControlName="search"
+            class="c-home__container__header__search__form__input"
+            placeholder="e.g: Nick James"
+          >
+          <button
+            *ngIf="isTyping"
+            class="c-home__container__header__search__form__button"
+            (click)="clear()"
+          >
+            X
+          </button>
+        </div>
+          
+          <span 
+            class="c-home__container__header__search__form__hint"
+          >
+            (Search Characters by Name and press Enter)
+          </span>
+        </form>
+      </div>
+    
+      <div class="c-home__container__header__paginator" *ngIf="(data$ | async) as data">
+          <app-paginator 
+            [pagination]="data.info" 
+            (nextEvent)="loadItems(+$event)"
+            (prevEvent)="loadItems(+$event)"
+          >
+          </app-paginator>
+      </div>
+    </div>
+
+      
+
     <div class="c-home__container__list" *ngIf="(data$ | async) as data">
       <app-card *ngFor="let item of data?.results">
         <!--left side -->
