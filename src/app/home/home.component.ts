@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map, filter, switchMap } from 'rxjs/operators';
 import { MainService } from '../shared/services/main.service';
-import { Main } from '../shared/interfaces/main.interface';
+import { Main, Character } from '../shared/interfaces/main.interface';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,8 @@ import { Main } from '../shared/interfaces/main.interface';
 })
 export class HomeComponent implements OnInit {
 
-  public data$: Observable<Main> = new Observable<Main>();;
+  public data$: Observable<Main> = new Observable<Main>();
+  public filteredData$: Observable<Character[]> = new Observable<Character[]>();
   public error: any;
 
   constructor(private service: MainService) {}
@@ -19,8 +21,16 @@ export class HomeComponent implements OnInit {
     this.loadItems();
   }
 
-  private loadItems(): void {
-    this.data$ = this.service.getItems();
+  public loadItems(page: number = 1): void {
+    this.data$ = this.service.getItems(page);
+  }
+
+  public searchByName(): void {
+    this.filteredData$ = this.data$.pipe(
+      map((result: any) => {
+        return result.results.filter((item: Character) => item.name === 'Rick Sanchez');
+      })
+    );
   }
 
 }

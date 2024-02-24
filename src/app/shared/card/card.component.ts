@@ -13,6 +13,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
  *  <img card-avatar [src]="urlImage" />
  * 
  *  <!-- right side -->
+ *  <!-- heaader -->
  *  <span card-title> {{ title }} </span>
  *  <span card-subtitle> {{ subtitle }} </span>
  * 
@@ -29,6 +30,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
+  host: { class: 'c-card' },
   encapsulation: ViewEncapsulation.None
 })
 

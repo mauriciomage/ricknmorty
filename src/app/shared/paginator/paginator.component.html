@@ -1,0 +1,18 @@
+<div class="c-paginator">
+    <button class="c-paginator__prev"
+      (click)="goPrevPage()"
+      [disabled]="currentPage === 1"
+    >
+      Prev
+    </button>
+    <span class="c-paginator__text"
+      >
+        Page {{ currentPage }} Of {{ pagination.pages }}
+    </span>
+    <button class="c-paginator__next"
+      (click)="goNextPage()"
+      [disabled]="currentPage === pagination.pages"
+    >
+      Next
+    </button>
+</div>

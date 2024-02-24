@@ -11,8 +11,8 @@ import { config } from '../../app.constant';
 export class MainService {
   constructor(private http: HttpClient) { }
 
-  public getItems(): Observable<Main> {
-    return this.http.get<Main>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}`, {}
+  public getItems(page: number): Observable<Main> {
+    return this.http.get<Main>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}?page=${page}`, {}
     )
     .pipe(shareReplay(1));
   }

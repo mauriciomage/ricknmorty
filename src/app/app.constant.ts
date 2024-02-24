@@ -4,6 +4,11 @@ export const config = {
   serviceRoot: 'api/',
   
   // URL's
+  URL_CHARACTERS: 'character',
+}
 
-  URL_CHARACTERS: 'character'
+export enum Status {
+  ALIVE = 'alive',
+  DEAD = 'dead',
+  UNKNOWN = 'unknown'
 }

@@ -1,0 +1,8 @@
+<span class="c-status"
+  [ngClass]="{
+    'c-status--active': isAlive,
+    'c-status--deactive': !isAlive && !isUnknown,
+    'c-status--unknown': isUnknown
+  }"
+>
+</span>

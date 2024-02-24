@@ -1,7 +1,4 @@
 .c-home {
-  background-color: #121212; /* Fondo oscuro */
-  color: #ffffff; /* Texto blanco */
-  font-family: 'Arial', sans-serif;
   margin: 0;
   justify-content: center;
   height: auto;
@@ -26,4 +23,16 @@
     }
 
   }
+}
+
+.estado {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.activo {
+  background-color: green;
 }

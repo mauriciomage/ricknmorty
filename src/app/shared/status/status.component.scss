@@ -1,0 +1,19 @@
+.c-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+
+  &--active {
+    background-color: green;
+  }
+
+  &--deactive {
+    background-color: red;
+  }
+
+  &--unknown {
+    background-color: gray;
+  }
+}

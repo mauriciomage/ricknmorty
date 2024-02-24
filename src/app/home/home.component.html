@@ -1,15 +1,30 @@
 <div class="c-home">
   <div class="c-home__container">
     <h3 class="c-home__container__header">Rick & Morty Application</h3>
-    
-    <div class="c-home__container__list" *ngIf="(data$ | async)?.results as characters">
-      <app-card *ngFor="let item of characters">
+    <div class="c-home__container__list" *ngIf="(data$ | async) as data">
+      <app-card *ngFor="let item of data?.results">
         <!--left side -->
         <img card-avatar [src]="item.image" />
         <!-- right side -->
           <span card-title> {{item.name}} </span>
-          <span card-subtitle> Gender: {{item.gender}}  </span>
+          <span card-subtitle> <app-status [status]="item.status"></app-status> {{item.status}} </span>
+
+          <!--body-->
+          <div card-body>
+            <p>Last known location <span> {{item.location.name}} </span></p>
+            <p>First seen on <span> {{item.origin.name}} </span></p>
+          </div>
+
       </app-card>  
+
+      <div class="c-home__container__list__paginator">
+          <app-paginator 
+            [pagination]="data.info" 
+            (nextEvent)="loadItems(+$event)"
+            (prevEvent)="loadItems(+$event)"
+          >
+          </app-paginator>
+      </div>
     </div>
   </div>
 </div>

@@ -1,3 +1,5 @@
+import { Status } from '../../app.constant';
+
 export interface Main {
   info: Info;
   results: Character[];
@@ -7,12 +9,13 @@ export interface Info {
   count: number;
   next: string;
   pages: 42;
-  prev: null
+  prev: string;
 }
 
 export interface Character {
   id: number;
   name: string;
+  status: Status;
   created: string;
   episode: string[];
   gender: string;
