@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Form } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { MainService } from '../shared/services/main.service';
 import { Main, Character } from '../shared/interfaces/main.interface';
+import { AppState } from '../reducers';
+import { Store } from '@ngrx/store';
+import { listCharacters } from './home.actions';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +21,11 @@ export class HomeComponent implements OnInit {
   public searchForm: FormGroup;
   public isTyping: boolean;
 
-  constructor(private service: MainService, private fb: FormBuilder) {}
+  constructor(
+    private service: MainService,
+    private fb: FormBuilder,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit() {
     this.loadItems();
@@ -28,6 +36,13 @@ export class HomeComponent implements OnInit {
 
   public loadItems(page: number = 1): void {
     this.data$ = this.service.getItems(page);
+    this.data$.pipe(
+      tap(data => {
+        console.log('data', data);
+        this.store.dispatch(listCharacters({results: data.results}))
+        }
+      )
+    ).subscribe();
   }
 
   public filterByName(): void {

@@ -17,7 +17,7 @@ import * as fromHome from './reducers';
     RouterModule.forChild([
       { path: '', component: HomeComponent },
     ]),
-    StoreModule.forFeature(fromHome.homeFeatureKey, fromHome.reducers)
+    StoreModule.forFeature(fromHome.homeFeatureKey, fromHome.homeReducer)
   ],
   declarations: [
     HomeComponent
