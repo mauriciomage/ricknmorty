@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   public filteredData$: Observable<Character[]> = new Observable<Character[]>();
   public error: any;
   public searchForm: FormGroup;
-  public isTyping: boolean;
+  public isFilter: boolean;
   public isStorageEmpty: boolean;
 
   constructor(
@@ -62,22 +62,29 @@ export class HomeComponent implements OnInit {
   }
 
   public test(): void {
-    this.test$ = this.store.pipe(select(hasData));
+    this.data$ = this.store.pipe(select(hasData));
   }
   
   public filterByName(): void {
     const name = this.searchForm.get('search')?.value;
     this.data$ = this.service.getItemsByName(name);
+    this.isFilter = true;
   }
 
   public onInputChange(event: Event): void {
     const inputValue = (event.target as HTMLInputElement).value;
-    this.isTyping = inputValue.length > 0;
+    // is filter and delete the characters from the input
+    if (this.isFilter && inputValue.length === 0) {
+      this.clear();
+    } 
   }
 
   public clear(): void {
     this.searchForm.get('search')?.setValue('');
-    this.isTyping = false;
+
+    // read info from the state
+    this.data$ = this.store.pipe(select(hasData));
+    this.isFilter = false;
   }
   
 }
