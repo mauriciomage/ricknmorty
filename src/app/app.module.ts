@@ -10,10 +10,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent
   ],
   imports: [ 
     BrowserModule,
@@ -25,6 +27,7 @@ import { EffectsModule } from '@ngrx/effects';
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([])
   ],
+  exports: [NotFoundComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
