@@ -1,8 +1,11 @@
+@import '../scss/themes';
+
+
 .c-card {
-  background-color: #1e1e1e;
+  background-color: $dark;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px $darkShadow;
   transition: transform 0.3s;
   display: flex;
 
@@ -21,7 +24,7 @@
     img {
       width: 100%;
       height: 100%;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid $lightDark;
     }
   }
 
@@ -49,13 +52,13 @@
 
     & [card-body] {
       & > p {
-        color: gray;
+        color: $gray;
         font-size: 20px;
         display: grid;
         gap: 5px;
 
         & > span {
-          color: white;
+          color: $white;
         }
       }
     }

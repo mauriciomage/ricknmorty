@@ -11,7 +11,6 @@
         <div>
             <input 
             (keyup.enter)="filterByName()"
-            (input)="onInputChange($event)"
             formControlName="search"
             class="c-home__container__header__search__form__input"
             placeholder="e.g: Nick James"
@@ -21,7 +20,7 @@
             class="c-home__container__header__search__form__button"
             (click)="clear()"
           >
-            X
+            CLEAR
           </button>
         </div>
           
@@ -45,7 +44,7 @@
 
       
 
-    <div class="c-home__container__list" *ngIf="(data$ | async) as data">
+    <div class="c-home__container__list" *ngIf="(data$ | async) as data; else showSpinner">
       <app-card 
         *ngFor="let item of data?.results"
         (click)="goToDetails(item)">
@@ -55,21 +54,26 @@
           <span card-title> {{item.name}} </span>
           <span card-subtitle> <app-status [status]="item.status"></app-status> {{ item.status | uppercase }} </span>
           <span *ngIf="item.type" card-subtitle> - {{ item.type }} </span> 
-          <!--body-->
-          <div card-body>
-            <p> (click the card to see more details) </p>
-          </div>
 
       </app-card>  
-
-      <div class="c-home__container__list__paginator">
-          <app-paginator 
-            [pagination]="data.info" 
-            (nextEvent)="loadItems(+$event)"
-            (prevEvent)="loadItems(+$event)"
-          >
-          </app-paginator>
-      </div>
     </div>
+
+    <div class="c-home__container__paginator" *ngIf="(data$ | async) as data">
+        <app-paginator 
+          [pagination]="data.info" 
+          (nextEvent)="loadItems(+$event)"
+          (prevEvent)="loadItems(+$event)"
+        >
+        </app-paginator>
+    </div>
+
+    <ng-template #showSpinner>
+      <div class="c-home__container__spinner">
+      </div>
+    </ng-template>
+
+      <div *ngIf="error$ | async" class="c-home__container__list--error">
+        Oops, an error has occurred. Try again.
+      </div>
   </div>
 </div>

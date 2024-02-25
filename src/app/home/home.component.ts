@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Form } from '@angular/forms';
 import { Observable, of, EMPTY } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { MainService } from '../shared/services/main.service';
 import { Main, Character } from '../shared/interfaces/main.interface';
 
@@ -10,7 +10,6 @@ import { storeInfo } from './home.actions';
 import { HomeState } from './reducers';
 import { hasData } from './home.selectors';
 import { Router } from '@angular/router';
-import { config } from '../app.constant';
 
 
 @Component({
@@ -21,7 +20,7 @@ import { config } from '../app.constant';
 export class HomeComponent implements OnInit {
 
   public data$: Observable<Main> = new Observable<Main>();
-  public test$: Observable<Main> = new Observable<Main>();
+  public error$: Observable<string>;
 
   public filteredData$: Observable<Character[]> = new Observable<Character[]>();
   public error: any;
@@ -63,15 +62,12 @@ export class HomeComponent implements OnInit {
       ).subscribe();
     
   }
-
-  public test(): void {
-    this.data$ = this.store.pipe(select(hasData));
-  }
   
   public filterByName(): void {
     const name = this.searchForm.get('search')?.value;
     this.data$ = this.service.getItemsByName(name);
     this.isFilter = true;
+    this.error$ = this.service.getErrorSubject();
   }
 
   public onInputChange(event: Event): void {
