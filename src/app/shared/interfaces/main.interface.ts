@@ -8,7 +8,7 @@ export interface Main {
 export interface Info {
   count: number;
   next: string;
-  pages: 42;
+  pages: number;
   prev: string;
 }
 

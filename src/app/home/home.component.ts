@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Form } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of, EMPTY } from 'rxjs';
+import { tap, map, switchMap, catchError } from 'rxjs/operators';
 import { MainService } from '../shared/services/main.service';
 import { Main, Character } from '../shared/interfaces/main.interface';
-import { AppState } from '../reducers';
-import { Store } from '@ngrx/store';
-import { listCharacters } from './home.actions';
+
+import { Store, select } from '@ngrx/store';
+import { storeInfo } from './home.actions';
+import { HomeState } from './reducers';
+import { hasData } from './home.selectors';
+
 
 @Component({
   selector: 'app-home',
@@ -16,15 +19,18 @@ import { listCharacters } from './home.actions';
 export class HomeComponent implements OnInit {
 
   public data$: Observable<Main> = new Observable<Main>();
+  public test$: Observable<Main> = new Observable<Main>();
+
   public filteredData$: Observable<Character[]> = new Observable<Character[]>();
   public error: any;
   public searchForm: FormGroup;
   public isTyping: boolean;
+  public isStorageEmpty: boolean;
 
   constructor(
     private service: MainService,
     private fb: FormBuilder,
-    private store: Store<AppState>
+    private store: Store<HomeState>
   ) {}
 
   ngOnInit() {
@@ -35,16 +41,20 @@ export class HomeComponent implements OnInit {
   }
 
   public loadItems(page: number = 1): void {
-    this.data$ = this.service.getItems(page);
-    this.data$.pipe(
-      tap(data => {
-        console.log('data', data);
-        this.store.dispatch(listCharacters({results: data.results}))
-        }
-      )
-    ).subscribe();
+      this.data$ = this.service.getItems(page);
+      this.data$.pipe(
+        tap(data => {
+          this.store.dispatch(storeInfo({data}))
+          }
+        )
+      ).subscribe();
+    
   }
 
+  public test(): void {
+    this.test$ = this.store.pipe(select(hasData));
+  }
+  
   public filterByName(): void {
     const name = this.searchForm.get('search')?.value;
     this.data$ = this.service.getItemsByName(name);
@@ -59,5 +69,5 @@ export class HomeComponent implements OnInit {
     this.searchForm.get('search')?.setValue('');
     this.isTyping = false;
   }
-
+  
 }

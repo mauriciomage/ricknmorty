@@ -1,26 +1,25 @@
 import {
-  ActionReducerMap, createReducer, on,
+  ActionReducerMap, createReducer, on, State,
 } from '@ngrx/store';
-import { Character } from '../../shared/interfaces/main.interface';
+import { Character, Main } from '../../shared/interfaces/main.interface';
 import { HomeActions } from '../action-type';
 
 export const homeFeatureKey = 'home';
 
 export interface HomeState {
-  results: Character[]
+  data: Main
 }
-
-
+export const initialValue = {info:{count: 0, pages: 0, prev: '', next: ''}, results: []};
 export const initialHomeState: HomeState = {
-  results: []
+  data: initialValue
 }
 
 export const homeReducer = createReducer(
   initialHomeState,
 
-  on(HomeActions.listCharacters, (state, action) => {
+  on(HomeActions.storeInfo, (state, action): HomeState => {
     return {
-      results: action.results
+      data: action.data
     };
-  })
+  }),
 );
