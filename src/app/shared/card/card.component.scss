@@ -8,6 +8,7 @@
 
   &:hover {
     transform: scale(1.05);
+    cursor: pointer;
   }
 
  
@@ -26,7 +27,7 @@
 
   &__right {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     
     &__header {
       display: flex;
@@ -34,18 +35,22 @@
 
       &  [card-title] {
         font-weight: 600;
+        font-size: 25px;
+        padding: 5px;
       }
 
       &  [card-subtitle] {
         font-weight: 300;
-        font-size: 12px;
+        font-size: 20px;
+        padding: 5px;
+        letter-spacing: 1px;
       }
     }
 
     & [card-body] {
       & > p {
         color: gray;
-        font-size: 12px;
+        font-size: 20px;
         display: grid;
         gap: 5px;
 

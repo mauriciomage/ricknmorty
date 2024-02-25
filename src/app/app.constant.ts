@@ -5,6 +5,9 @@ export const config = {
   
   // URL's
   URL_CHARACTERS: 'character',
+
+  // Custom Buttons
+  ACTION_BACK: 'back'
 }
 
 export enum Status {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { shareReplay } from 'rxjs/operators'
 import { Observable } from 'rxjs';
-import { Main } from '../interfaces/main.interface';
+import { Main, Character } from '../interfaces/main.interface';
 import { config } from '../../app.constant';
 
 @Injectable({
@@ -19,6 +19,12 @@ export class MainService {
 
   public getItemsByName(name: string): Observable<Main> {
     return this.http.get<Main>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}?name=${name}`, {}
+    )
+    .pipe(shareReplay(1));
+  }
+
+  public getDetails(id: number): Observable<Character> {
+    return this.http.get<Character>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}/${id}`, {}
     )
     .pipe(shareReplay(1));
   }

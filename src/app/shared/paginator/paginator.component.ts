@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Info } from '../interfaces/main.interface';
 import { Output, EventEmitter } from '@angular/core';
+import { CustomButtons } from '../interfaces/utils.interface';
+import { config } from '../../app.constant';
+
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
@@ -10,16 +14,20 @@ import { Output, EventEmitter } from '@angular/core';
 export class PaginatorComponent implements OnInit {
 
   @Input() pagination: Info;
+  @Input() customButtons: CustomButtons[];
 
   @Output() prevEvent = new EventEmitter<number>();
   @Output() nextEvent = new EventEmitter<number>();
 
   currentPage: number;
 
-  constructor() {}
+  constructor(private location: Location) {}
 
   ngOnInit() {
-    this.calculateCurrentPage();
+    // use it for paginations of items
+    if (this.pagination) {
+      this.calculateCurrentPage();
+    }
   }
 
   private calculateCurrentPage(): void {
@@ -33,6 +41,17 @@ export class PaginatorComponent implements OnInit {
 
   public goPrevPage() {
     this.prevEvent.emit(+this.pagination.prev.split('=')[1]);
+  }
+
+  public onAction(action: string): void{
+    switch (action) {
+      case config.ACTION_BACK:
+        this.location.back();
+        break;
+      // Add more Actions as you need
+      default:
+        break;
+    }
   }
 
   private getPage(url: string): number {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Form } from '@angular/forms';
 import { Observable, of, EMPTY } from 'rxjs';
-import { tap, map, switchMap, catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { MainService } from '../shared/services/main.service';
 import { Main, Character } from '../shared/interfaces/main.interface';
 
@@ -9,6 +9,8 @@ import { Store, select } from '@ngrx/store';
 import { storeInfo } from './home.actions';
 import { HomeState } from './reducers';
 import { hasData } from './home.selectors';
+import { Router } from '@angular/router';
+import { config } from '../app.constant';
 
 
 @Component({
@@ -30,7 +32,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private service: MainService,
     private fb: FormBuilder,
-    private store: Store<HomeState>
+    private store: Store<HomeState>,
+    private route: Router
   ) {}
 
   ngOnInit() {
@@ -85,6 +88,10 @@ export class HomeComponent implements OnInit {
     // read info from the state
     this.data$ = this.store.pipe(select(hasData));
     this.isFilter = false;
+  }
+
+  public goToDetails(item: Character): void {
+    this.route.navigate([`/details/${item.id}`])
   }
   
 }

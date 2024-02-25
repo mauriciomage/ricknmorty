@@ -1,0 +1,42 @@
+.c-details {
+  
+  &__header {
+    display: block;
+    text-align: center;
+    
+    &__heading {
+      font-size: 25px;
+      color: white;
+
+    }
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+
+    &--button {
+      background-color: transparent;
+      border-radius: 10px;
+      color: white;
+      padding: 8px;
+      border-color: gray;
+      margin: 0;
+      font-size: 16px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

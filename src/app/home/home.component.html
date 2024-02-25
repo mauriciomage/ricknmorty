@@ -46,17 +46,18 @@
       
 
     <div class="c-home__container__list" *ngIf="(data$ | async) as data">
-      <app-card *ngFor="let item of data?.results">
+      <app-card 
+        *ngFor="let item of data?.results"
+        (click)="goToDetails(item)">
         <!--left side -->
         <img card-avatar [src]="item.image" />
         <!-- right side -->
           <span card-title> {{item.name}} </span>
-          <span card-subtitle> <app-status [status]="item.status"></app-status> {{item.status}} </span>
-
+          <span card-subtitle> <app-status [status]="item.status"></app-status> {{ item.status | uppercase }} </span>
+          <span *ngIf="item.type" card-subtitle> - {{ item.type }} </span> 
           <!--body-->
           <div card-body>
-            <p>Last known location <span> {{item.location.name}} </span></p>
-            <p>First seen on <span> {{item.origin.name}} </span></p>
+            <p> (click the card to see more details) </p>
           </div>
 
       </app-card>  

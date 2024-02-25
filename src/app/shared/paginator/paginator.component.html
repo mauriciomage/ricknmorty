@@ -1,18 +1,27 @@
 <div class="c-paginator">
-    <button class="c-paginator__prev"
+    <button *ngIf="pagination?.prev"
+      class="c-paginator__prev"
       (click)="goPrevPage()"
       [disabled]="currentPage === 1"
     >
       Prev
     </button>
-    <span class="c-paginator__text"
+    <span *ngIf="pagination?.pages"
+      class="c-paginator__text"
       >
         Page {{ currentPage }} Of {{ pagination.pages }}
     </span>
-    <button class="c-paginator__next"
+    <button *ngIf="pagination?.next"
+      class="c-paginator__next"
       (click)="goNextPage()"
       [disabled]="currentPage === pagination.pages"
     >
       Next
+    </button>
+    <button *ngFor="let button of customButtons"
+      class="c-paginator__next"
+      (click)="onAction(button.action)"
+    >
+      {{button.label}}
     </button>
 </div>
