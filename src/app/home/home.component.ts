@@ -34,7 +34,17 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadItems();
+    const data = localStorage.getItem('data');
+
+    // if the data is at the Storage load it from there
+    if (data) {
+      this.store.dispatch(storeInfo({data: JSON.parse(data)}));
+      this.data$ = of(JSON.parse(data));
+    } else {
+      // load from the service
+      this.loadItems();
+    }
+
     this.searchForm = this.fb.group({
       search: [''],
     });

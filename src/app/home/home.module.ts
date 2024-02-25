@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import * as fromHome from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { HomeEffects } from './home.effects';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import * as fromHome from './reducers';
     RouterModule.forChild([
       { path: '', component: HomeComponent },
     ]),
-    StoreModule.forFeature(fromHome.homeFeatureKey, fromHome.homeReducer)
+    StoreModule.forFeature(fromHome.homeFeatureKey, fromHome.homeReducer),
+    EffectsModule.forFeature([HomeEffects])
   ],
   declarations: [
     HomeComponent
