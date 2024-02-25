@@ -4,6 +4,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import * as fromHome from './reducers';
 
 
 @NgModule({
@@ -14,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: '', component: HomeComponent },
-    ])
+    ]),
+    StoreModule.forFeature(fromHome.homeFeatureKey, fromHome.reducers)
   ],
   declarations: [
     HomeComponent
