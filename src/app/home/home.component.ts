@@ -21,8 +21,6 @@ export class HomeComponent implements OnInit {
 
   public data$: Observable<Main> = new Observable<Main>();
   public error$: Observable<string>;
-
-  public filteredData$: Observable<Character[]> = new Observable<Character[]>();
   public error: any;
   public searchForm: FormGroup;
   public isFilter: boolean;
