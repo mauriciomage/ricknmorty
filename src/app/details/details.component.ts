@@ -3,7 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { MainService } from '../shared/services/main.service';
 import { Character } from '../shared/interfaces/main.interface';
 import { Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { CustomButtons } from '../shared/interfaces/utils.interface';
+import { Store } from '@ngrx/store';
+import { storeDetails } from './details.actions';
 
 
 @Component({
@@ -16,7 +19,10 @@ export class DetailsComponent implements OnInit {
   public details$: Observable<Character>;
   public utilsButtons: CustomButtons[] = [];
 
-  constructor(private route: ActivatedRoute, private service: MainService) {}
+  constructor(
+      private route: ActivatedRoute,
+      private service: MainService,
+      private store: Store) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -29,6 +35,12 @@ export class DetailsComponent implements OnInit {
 
   public getDetails(id: number): void {
     this.details$ = this.service.getDetails(id);
+    this.details$.pipe(
+      tap(details => {
+        this.store.dispatch(storeDetails({details}))
+        }
+      )
+    ).subscribe();
   }
 
   private setUtilButtons(): void {
