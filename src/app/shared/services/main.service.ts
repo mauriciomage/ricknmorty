@@ -17,7 +17,12 @@ export class MainService {
   public getItems(page: number): Observable<Main> {
     return this.http.get<Main>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}?page=${page}`, {}
     )
-    .pipe(shareReplay(1));
+    .pipe(shareReplay(1),
+      catchError((error) => {
+        this.errorSubject.next('Oops, an error has occurred.');
+        return throwError(error);
+      })
+    );
   }
 
   public getItemsByName(name: string): Observable<Main> {
@@ -35,7 +40,11 @@ export class MainService {
   public getDetails(id: number): Observable<Character> {
     return this.http.get<Character>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}/${id}`, {}
     )
-    .pipe(shareReplay(1));
+    .pipe(shareReplay(1),
+    catchError((error) => {
+      this.errorSubject.next('Oops, an error has occurred.');
+      return throwError(error);
+    }));
   }
 
   getErrorSubject(): Observable<string> {

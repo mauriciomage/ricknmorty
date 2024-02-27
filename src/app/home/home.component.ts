@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
           }
         )
       ).subscribe();
-    
+    this.error$ = this.service.getErrorSubject();
   }
   
   public filterByName(): void {
@@ -66,14 +66,6 @@ export class HomeComponent implements OnInit {
     this.data$ = this.service.getItemsByName(name);
     this.isFilter = true;
     this.error$ = this.service.getErrorSubject();
-  }
-
-  public onInputChange(event: Event): void {
-    const inputValue = (event.target as HTMLInputElement).value;
-    // is filter and delete the characters from the input
-    if (this.isFilter && inputValue.length === 0) {
-      this.clear();
-    } 
   }
 
   public clear(): void {
@@ -87,5 +79,4 @@ export class HomeComponent implements OnInit {
   public goToDetails(item: Character): void {
     this.route.navigate([`/details/${item.id}`])
   }
-  
 }
