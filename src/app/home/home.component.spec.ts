@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { MainService } from '../shared/services/main.service';
@@ -88,5 +88,13 @@ describe('HomeComponent', () => {
     component.goToDetails(mockItem);
   
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/details/1']);
+  });
+
+
+  it('should not return an error typing the correct value in search box', () => {
+    const search = new FormControl('rick');
+    const result = component.getHasValidFormat(search);
+
+    expect(result).toBe(false);
   });
 });

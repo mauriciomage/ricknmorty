@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MainService } from '../shared/services/main.service';
@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
 
   public data$: Observable<Main> = new Observable<Main>();
   public error$: Observable<string>;
-  public error: any;
   public searchForm: FormGroup;
   public isFilter: boolean;
   public isStorageEmpty: boolean;
@@ -35,7 +34,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     const data = localStorage.getItem('data');
-
     // if the data is at the Storage load it from there
     if (data) {
       this.store.dispatch(storeInfo({data: JSON.parse(data)}));
@@ -44,12 +42,16 @@ export class HomeComponent implements OnInit {
       // load from the service
       this.loadItems();
     }
-
+    //init form
     this.searchForm = this.fb.group({
-      search: [''],
+      search: ['', [Validators.pattern(/^[a-zA-Z0-9]*$/)]],
     });
   }
 
+  /**
+   * requests items to the service
+   * @param page number
+   */
   public loadItems(page: number = 1): void {
       this.data$ = this.service.getItems(page);
       this.data$.pipe(
@@ -61,13 +63,22 @@ export class HomeComponent implements OnInit {
       this.error$ = this.service.getErrorSubject();
   }
   
+  /**
+   * Requests items by name
+   */
   public filterByName(): void {
     const name = this.searchForm.get('search')?.value;
-    this.data$ = this.service.getItemsByName(name);
-    this.isFilter = true;
+    if (this.searchForm.valid) {
+      this.data$ = this.service.getItemsByName(name);
+      this.isFilter = true;
+    }
+    // service error
     this.error$ = this.service.getErrorSubject();
   }
 
+  /**
+   * clear filter and read from state
+   */
   public clear(): void {
     this.searchForm.get('search')?.setValue('');
 
@@ -76,7 +87,19 @@ export class HomeComponent implements OnInit {
     this.isFilter = false;
   }
 
+  /**
+   * navigates to the detail page
+   * @param item Character object
+   */
   public goToDetails(item: Character): void {
     this.route.navigate([`/details/${item.id}`])
+  }
+  /**
+   * check if has errors
+   * @param control search 
+   * @returns boolean if has error or not
+   */
+  public getHasValidFormat(control: AbstractControl): boolean {
+    return control.errors ? true : false;
   }
 }

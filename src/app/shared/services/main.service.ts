@@ -14,6 +14,11 @@ export class MainService {
   
   constructor(private http: HttpClient) { }
 
+  /**
+   * requests api to fetch items
+   * @param page number 
+   * @return Observable<Main> of type Main to be subscribe by 
+   */
   public getItems(page: number): Observable<Main> {
     return this.http.get<Main>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}?page=${page}`, {}
     )
@@ -25,6 +30,11 @@ export class MainService {
     );
   }
 
+  /**
+   * requests api to fetch items by name
+   * @param name 
+   * @return Observable<Main> of type Main to be subscribe by 
+   */
   public getItemsByName(name: string): Observable<Main> {
     return this.http.get<Main>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}?name=${name}`, {}
     )
@@ -37,6 +47,11 @@ export class MainService {
     );
   }
 
+  /**
+   * requests api to get the details of the Character
+   * @param id Character number
+   * @return Observable<Characcter> of type Character to be subscribed by
+   */
   public getDetails(id: number): Observable<Character> {
     return this.http.get<Character>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}/${id}`, {}
     )
@@ -47,6 +62,10 @@ export class MainService {
     }));
   }
 
+  /**
+   * get Error Subject 
+   * @return the error subject obserable to be subscribed by
+   */
   getErrorSubject(): Observable<string> {
     return this.errorSubject.asObservable();
   }

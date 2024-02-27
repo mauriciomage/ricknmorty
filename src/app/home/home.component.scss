@@ -40,8 +40,7 @@
           @include respond-to($breakpoint-tablet) {
             align-items: flex-start;
           }
-          
-          
+
           &__input {
             background-color: transparent;
             color: $white;
@@ -57,7 +56,6 @@
             }
           }
 
-
           &__button {
             background-color: $white;
             border-radius: 10px;
@@ -72,6 +70,10 @@
             color: $white;
             opacity: 0.8;
             font-size: 18px;
+
+            &--error {
+              color: $red;
+            }
           }
         }
       }
@@ -113,8 +115,6 @@
       @include respond-to($breakpoint-tablet) {
         justify-content: end;
       }
-     
     }
-
   }
 }

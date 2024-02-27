@@ -26,8 +26,15 @@
           
           <span 
             class="c-home__container__header__search__form__hint"
+            *ngIf="!getHasValidFormat(searchForm.controls['search'])"
           >
             (Search Characters by Name and press Enter)
+          </span>
+          <span 
+            class="c-home__container__header__search__form__hint--error"
+            *ngIf="getHasValidFormat(searchForm.controls['search'])"
+          >
+            Please enter a valid value (Chars & nnmbers allowed)
           </span>
         </form>
       </div>

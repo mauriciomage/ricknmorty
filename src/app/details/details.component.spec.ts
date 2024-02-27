@@ -1,19 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
 import { DetailsComponent } from './details.component';
 import { MainService } from '../shared/services/main.service';
 import { Store, StoreModule } from '@ngrx/store';
-import { storeDetails } from './details.actions';
-import { makeSelectDetailById } from './details.selectors';
-import { MockMain } from '../shared/mock/mock';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
-fdescribe('DetailsComponent', () => {
+describe('DetailsComponent', () => {
   let component: DetailsComponent;
   let fixture: ComponentFixture<DetailsComponent>;
-  let mockService: jasmine.SpyObj<MainService>;
   let mockMainService: jasmine.SpyObj<MainService>;
   let mockStore: Store;
 

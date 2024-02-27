@@ -30,19 +30,32 @@ export class PaginatorComponent implements OnInit {
     }
   }
 
+  /**
+   * check next page to calculate current one
+   */
   private calculateCurrentPage(): void {
     const page = this.getPage(this.pagination.next);
     this.currentPage = page - 1;
   }
 
+  /**
+   * emit next page event
+   */
   public goNextPage() {
     this.nextEvent.emit(+this.pagination.next.split('=')[1]);
   }
 
+  /**
+   * emit prev page event
+   */
   public goPrevPage() {
     this.prevEvent.emit(+this.pagination.prev.split('=')[1]);
   }
 
+  /**
+   * different action the custom button can take
+   * @param action button action string
+   */
   public onAction(action: string): void{
     switch (action) {
       case config.ACTION_BACK:
@@ -54,6 +67,10 @@ export class PaginatorComponent implements OnInit {
     }
   }
 
+  /**
+   * get query param page
+   * @param url string url
+   */
   private getPage(url: string): number {
     const queryString = url.split('?')[1];
     const queryParams = queryString.split('&');

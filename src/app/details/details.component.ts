@@ -54,6 +54,10 @@ export class DetailsComponent implements OnInit {
       this.initUtils();
     }
 
+  /**
+   * Fetch Details from service
+   * @param id number of the Character
+   */
   public getDetails(id: number): void {
     this.details$ = this.service.getDetails(id);
     this.details$.pipe(
@@ -64,6 +68,9 @@ export class DetailsComponent implements OnInit {
     ).subscribe();
   }
 
+  /**
+   * Set utils connfig buttons
+   */
   private initUtils(): void {
     const backButton: CustomButtons = {id: 'details_back_btn', label: 'Back', action: 'back'};
     // add more button as you need
