@@ -43,7 +43,7 @@
     </div>
 
       
-
+    <!-- <app-spinner></app-spinner> -->
     <div class="c-home__container__list" *ngIf="(data$ | async) as data; else showSpinner">
       <app-card 
         *ngFor="let item of data?.results"
@@ -66,14 +66,14 @@
         >
         </app-paginator>
     </div>
-
+   
+    <div *ngIf="error$ | async" class="c-home__container__list--error">
+      Oops, an error has occurred. Try again.
+    </div>
+      
     <ng-template #showSpinner>
-      <div class="c-home__container__spinner">
-      </div>
+      <app-spinner></app-spinner>
     </ng-template>
-
-      <div *ngIf="error$ | async" class="c-home__container__list--error">
-        Oops, an error has occurred. Try again.
-      </div>
+  
   </div>
 </div>

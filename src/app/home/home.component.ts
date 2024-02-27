@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Form } from '@angular/forms';
-import { Observable, of, EMPTY } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { MainService } from '../shared/services/main.service';
 import { Main, Character } from '../shared/interfaces/main.interface';
 
@@ -54,11 +54,11 @@ export class HomeComponent implements OnInit {
       this.data$ = this.service.getItems(page);
       this.data$.pipe(
         tap(data => {
-          this.store.dispatch(storeInfo({data}))
+          this.store.dispatch(storeInfo({data}));
           }
         )
       ).subscribe();
-    this.error$ = this.service.getErrorSubject();
+      this.error$ = this.service.getErrorSubject();
   }
   
   public filterByName(): void {

@@ -2,21 +2,24 @@
   <div class="c-details__header">
       <h3 class="c-details__header__heading">Details of the Character</h3>
   </div>
-  <div class="c-details__container">
-      <app-card *ngIf="(details$ | async) as details">
+  <div class="c-details__container" *ngIf="(details$ | async) as details; else showSpinner">
+    <app-card>
       <!--left side -->
       <img card-avatar [src]="details.image" />
       <!-- right side -->
-        <span card-title> {{details.name}} </span>
-        <span card-subtitle> <app-status [status]="details.status"></app-status> {{ details.status | uppercase }} </span>
-        <span *ngIf="details.type" card-subtitle> - {{ details.type }} </span> 
-        <!--body-->
-        <div card-body>
-          <p>Last known location <span> {{details.location.name}} </span></p>
-          <p>First seen on <span> {{details.origin.name}} </span></p>
-        </div>
+      <span card-title> {{details.name}} </span>
+      <span card-subtitle> <app-status [status]="details.status"></app-status> {{ details.status | uppercase }} </span>
+      <span *ngIf="details.type" card-subtitle> - {{ details.type }} </span> 
+      <!--body-->
+      <div card-body>
+        <p>Last known location <span> {{details.location.name}} </span></p>
+        <p>First seen on <span> {{details.origin.name}} </span></p>
+      </div>
     </app-card>
   </div>
+  <ng-template #showSpinner>
+    <app-spinner></app-spinner>
+  </ng-template>
   <div class="c-details__footer">
       <app-paginator [customButtons]="utilsButtons">
       </app-paginator>

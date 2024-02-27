@@ -3,6 +3,7 @@ import { CardComponent } from '../shared/card/card.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { StatusComponent } from './status/status.component';
 import { CommonModule } from '@angular/common';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -11,12 +12,14 @@ import { CommonModule } from '@angular/common';
   declarations: [
     CardComponent,
     PaginatorComponent,
-    StatusComponent
+    StatusComponent,
+    SpinnerComponent
   ],
   exports: [
     CardComponent,
     PaginatorComponent,
-    StatusComponent
+    StatusComponent,
+    SpinnerComponent
   ]
 })
 
