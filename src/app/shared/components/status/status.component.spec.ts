@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StatusComponent } from './status.component';
-import { Status } from '../../app.constant';
+import { Status } from '../../../app.constant';
 
 describe('StatusComponent', () => {
   let component: StatusComponent;

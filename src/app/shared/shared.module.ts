@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
-import { CardComponent } from '../shared/card/card.component';
-import { PaginatorComponent } from './paginator/paginator.component';
-import { StatusComponent } from './status/status.component';
+import { CardComponent } from './components/card/card.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { StatusComponent } from './components/status/status.component';
 import { CommonModule } from '@angular/common';
-import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   imports: [

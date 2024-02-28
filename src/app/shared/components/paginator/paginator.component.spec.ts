@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PaginatorComponent } from './paginator.component';
 import { Location } from '@angular/common';
-import { config } from '../../app.constant';
-import { MockMain } from '../mock/mock';
+import { config } from '../../../app.constant';
+import { MockMain } from '../../mock/mock';
 
 describe('PaginatorComponent', () => {
   let fixture: ComponentFixture<PaginatorComponent>;

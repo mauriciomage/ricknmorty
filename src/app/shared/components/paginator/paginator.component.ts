@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
-import { Info } from '../interfaces/main.interface';
+import { Info } from '../../interfaces/main.interface';
 import { Output, EventEmitter } from '@angular/core';
-import { CustomButtons } from '../interfaces/utils.interface';
-import { config } from '../../app.constant';
+import { CustomButtons } from '../../interfaces/utils.interface';
+import { config } from '../../../app.constant';
 
 @Component({
   selector: 'app-paginator',

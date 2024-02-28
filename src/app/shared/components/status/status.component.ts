@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Status } from '../../app.constant';
+import { Status } from '../../../app.constant';
 
 @Component({
   selector: 'app-status',
