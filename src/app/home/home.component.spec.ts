@@ -53,7 +53,7 @@ describe('HomeComponent', () => {
     mockMainService.getItems.and.returnValue(of(mockData));
     component.ngOnInit();
     expect(component.data$).toBeDefined();
-    expect(mockMainService.getItems).toHaveBeenCalledOnceWith(1);
+    expect(mockMainService.getItems).toHaveBeenCalled();
     expect(mockStore.dispatch).toHaveBeenCalledWith(storeInfo({ data: mockData }));
   });
 

@@ -36,24 +36,26 @@ describe('PaginatorComponent', () => {
 
   it('should emit nextEvent on goNextPage', () => {
     const pagination = MockMain.info;
+    const mockNext = 'https://rickandmortyapi.com/api/character?page=2';
     component.pagination = pagination;
     spyOn(component.nextEvent, 'emit');
 
     fixture.detectChanges();
     component.goNextPage();
 
-    expect(component.nextEvent.emit).toHaveBeenCalledWith(2);
+    expect(component.nextEvent.emit).toHaveBeenCalledWith(mockNext);
   });
 
   it('should emit prevEvent on goPrevPage', () => {
     const pagination = MockMain.info;
+    const mockPrev = 'https://rickandmortyapi.com/api/character?page=1';
     component.pagination = pagination;
     spyOn(component.prevEvent, 'emit');
 
     fixture.detectChanges();
     component.goPrevPage();
 
-    expect(component.prevEvent.emit).toHaveBeenCalledWith(1);
+    expect(component.prevEvent.emit).toHaveBeenCalledWith(mockPrev);
   });
 
   it('should call location.back() on ACTION_BACK', () => {

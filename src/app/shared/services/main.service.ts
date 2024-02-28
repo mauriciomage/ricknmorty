@@ -19,8 +19,9 @@ export class MainService {
    * @param page number 
    * @return Observable<Main> of type Main to be subscribe by 
    */
-  public getItems(page: number): Observable<Main> {
-    return this.http.get<Main>(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}?page=${page}`, {}
+  public getItems(url: string = ''): Observable<Main> {
+    const getUrl = url !== '' ? url : `${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}`;
+    return this.http.get<Main>(getUrl, {}
     )
     .pipe(shareReplay(1),
       catchError((error) => {

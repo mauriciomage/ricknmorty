@@ -7,7 +7,7 @@ import {  DetailsActions } from './action-type';
 @Injectable()
 export class DetailsEffects {
 
-  public storeInfo$ = createEffect(() => this.action$
+  public storeDetails$ = createEffect(() => this.action$
   .pipe(
     ofType(DetailsActions.storeDetails),
     tap((action: DetailState) => localStorage.setItem('character', JSON.stringify(action.details)))

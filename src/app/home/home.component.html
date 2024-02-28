@@ -42,8 +42,8 @@
       <div class="c-home__container__header__paginator" *ngIf="(data$ | async) as data">
           <app-paginator 
             [pagination]="data.info" 
-            (nextEvent)="loadItems(+$event)"
-            (prevEvent)="loadItems(+$event)"
+            (nextEvent)="loadItems($event)"
+            (prevEvent)="loadItems($event)"
           >
           </app-paginator>
       </div>
@@ -68,8 +68,8 @@
     <div class="c-home__container__paginator" *ngIf="(data$ | async) as data">
         <app-paginator 
           [pagination]="data.info" 
-          (nextEvent)="loadItems(+$event)"
-          (prevEvent)="loadItems(+$event)"
+          (nextEvent)="loadItems($event)"
+          (prevEvent)="loadItems($event)"
         >
         </app-paginator>
     </div>
@@ -78,8 +78,8 @@
       Oops, an error has occurred. Try again.
     </div>
       
-    <ng-template #showSpinner>
-      <app-spinner></app-spinner>
+    <ng-template #showSpinner >
+      <app-spinner *ngIf="!(error$ | async)"></app-spinner>
     </ng-template>
   
   </div>

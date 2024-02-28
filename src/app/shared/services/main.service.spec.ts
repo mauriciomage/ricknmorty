@@ -29,14 +29,16 @@ describe('MainService', () => {
   it('should get items successfully via GET', () => {
     const mockData: Main = MockMain;
 
-    service.getItems(1).subscribe(data => {
+    service.getItems().subscribe(data => {
       expect(data).toEqual(mockData);
     });
 
-    const req = httpMock.expectOne(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}?page=1`);
-    expect(req.request.method).toEqual('GET');
-    req.flush(mockData);
-  });
+    const req1 = httpMock.expectOne(`${config.serviceExt}${config.serviceRoot}${config.URL_CHARACTERS}`);
+    expect(req1.request.method).toEqual('GET');
+    req1.flush(mockData);
+
+    httpMock.verify();
+});
 
   it('should get items by name successfully via GET', () => {
     const mockData: Main = MockMain;

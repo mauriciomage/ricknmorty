@@ -36,8 +36,8 @@ export class HomeComponent implements OnInit {
     const data = localStorage.getItem('data');
     // if the data is at the Storage load it from there
     if (data) {
-      this.store.dispatch(storeInfo({data: JSON.parse(data)}));
-      this.data$ = of(JSON.parse(data));
+      this.store.dispatch(storeInfo({data: this.parseJSON(data)}));
+      this.data$ = of(this.parseJSON(data));
     } else {
       // load from the service
       this.loadItems();
@@ -52,11 +52,14 @@ export class HomeComponent implements OnInit {
    * requests items to the service
    * @param page number
    */
-  public loadItems(page: number = 1): void {
-      this.data$ = this.service.getItems(page);
+  public loadItems(url: string = ''): void {
+      this.data$ = this.service.getItems(url);
       this.data$.pipe(
         tap(data => {
-          this.store.dispatch(storeInfo({data}));
+            if (url === '') {
+              // no store just paginating
+              this.store.dispatch(storeInfo({data}));              
+            }
           }
         )
       ).subscribe();
@@ -101,5 +104,9 @@ export class HomeComponent implements OnInit {
    */
   public getHasValidFormat(control: AbstractControl): boolean {
     return control.errors ? true : false;
+  }
+
+  private parseJSON(data: string): Main {
+    return JSON.parse(data);
   }
 }
